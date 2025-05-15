@@ -7,7 +7,7 @@ export default function ProtectedRoute({ children }) {
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) {
-      navigate('/signin');
+      navigate('/signup');
     }
   }, [navigate]);
 
