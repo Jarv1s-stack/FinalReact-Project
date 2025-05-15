@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function SignIn({ setShowAnimation }) {
 
@@ -55,7 +55,7 @@ export default function SignIn({ setShowAnimation }) {
           <button type="submit" className="submit-btn">Sign In</button>
           <p className="text-center mt-4">
             Don't have an account?{' '}
-            <a href="/signup" className="text-primary-color hover:underline">Sign Up</a>
+            <Link to="/signup" className="text-primary-color hover:underline">Sign Up</Link>
           </p>
         </form>
       </div>
