@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import VoiceAssistant from './VoiceAssistant';
 import Loadingscreen from './WelcomeAnimation.jsx';
@@ -214,20 +214,27 @@ const Skills = ({ lang }) => {
   const skillRefs = useRef([]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      skillRefs.current.forEach((progress, index) => {
-        if (progress) {
-          const rect = progress.getBoundingClientRect();
-          if (rect.top < window.innerHeight - 100) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const progress = entry.target;
             progress.style.width = progress.dataset.width;
           }
-        }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    skillRefs.current.forEach((progress) => {
+      if (progress) observer.observe(progress);
+    });
+
+    return () => {
+      skillRefs.current.forEach((progress) => {
+        if (progress) observer.unobserve(progress);
       });
     };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -249,6 +256,7 @@ const Skills = ({ lang }) => {
                 className={`progress ${skill.className}`}
                 ref={(el) => (skillRefs.current[idx] = el)}
                 data-width={`${skill.percent}%`}
+                style={{ width: '0%' }}
               ></div>
             </div>
           </div>
