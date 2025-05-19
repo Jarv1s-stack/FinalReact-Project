@@ -1,4 +1,3 @@
-
 :root {
     --primary-color: #6c63ff;
     --secondary-color: #4d44db;
@@ -120,7 +119,6 @@ img {
     color: var(--text-light);
 }
 
-
 header {
     position: fixed;
     top: 0;
@@ -223,7 +221,7 @@ nav a:hover::after {
     border: 1px solid var(--primary-color);
     border-radius: 5px;
     padding: 8px;
-    font-size: 14px;
+    font: 30px;
     color: var(--text-color);
     cursor: pointer;
     transition: var(--transition);
@@ -811,49 +809,6 @@ footer {
     animation: blink 0.7s infinite;
 }
 
-.contact-section.auth {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 50px 10%;
-}
-
-.contact-container.auth {
-    max-width: 400px;
-    width: 100%;
-    background-color: var(--white);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.contact-form.auth {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.contact-form.auth input {
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid var(--text-light);
-    background-color: var(--light-color);
-    transition: var(--transition);
-}
-
-.contact-form.auth input:focus {
-    border-color: var(--primary-color);
-    background-color: var(--white);
-}
-
-.contact-form.auth .submit-btn {
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-}
-
 @media (max-width: 768px) {
     header {
         padding: 15px 5%;
@@ -1163,24 +1118,6 @@ footer {
         border-radius: 8px;
     }
 
-    .contact-section.auth {
-        padding: 50px 5%;
-    }
-
-    .contact-container.auth {
-        padding: 20px;
-    }
-
-    .contact-form.auth input {
-        padding: 15px;
-        font-size: 18px;
-    }
-
-    .contact-form.auth .submit-btn {
-        padding: 15px;
-        font-size: 18px;
-    }
-
     footer {
         padding: 15px 5%;
         flex-direction: column;
@@ -1203,7 +1140,7 @@ footer {
     .social-links a {
         width: 35px;
         height: 35px;
-        font-size: 18px;
+        font-size: 18x;
     }
 
     .copyright {
@@ -1244,22 +1181,14 @@ footer {
     .stat-item .label {
         font-size: 14px;
     }
-
-    .contact-section.auth {
-        padding: 30px 5%;
-    }
-
-    .contact-container.auth {
-        padding: 15px;
-    }
 }
 
 .animate-blink {
     animation: blink 0.5s step-end infinite;
-  }
-  
-  @keyframes blink {
+}
+
+@keyframes blink {
     0% { opacity: 1; }
     50% { opacity: 0; }
     100% { opacity: 1; }
-  }
+}

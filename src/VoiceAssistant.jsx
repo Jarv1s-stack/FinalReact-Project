@@ -9,7 +9,6 @@ const VoiceAssistant = ({ lang, setLang, theme, toggleTheme }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const loadVoices = () => {
       const availableVoices = window.speechSynthesis.getVoices();
@@ -23,7 +22,6 @@ const VoiceAssistant = ({ lang, setLang, theme, toggleTheme }) => {
       window.speechSynthesis.onvoiceschanged = null;
     };
   }, []);
-
 
   const getAIResponse = async (userText) => {
     const API_KEY = 'AIzaSyAOloeZh-P1jDYyzLciFTcnmbkXRIcC3fo';
@@ -60,7 +58,6 @@ const VoiceAssistant = ({ lang, setLang, theme, toggleTheme }) => {
     }
   };
 
-
   const startListening = () => {
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     recognition.lang = lang === 'ru' ? 'ru-RU' : 'en-US';
@@ -80,7 +77,6 @@ const VoiceAssistant = ({ lang, setLang, theme, toggleTheme }) => {
     setIsListening(true);
     recognition.onend = () => setIsListening(false);
   };
-
 
   const speak = (message) => {
     const utterance = new SpeechSynthesisUtterance(message);
@@ -102,7 +98,6 @@ const VoiceAssistant = ({ lang, setLang, theme, toggleTheme }) => {
 
     window.speechSynthesis.speak(utterance);
   };
-
 
   const handleNavClick = (e, path) => {
     e.preventDefault();

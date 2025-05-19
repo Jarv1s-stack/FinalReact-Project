@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export default function Loadingscreen({ onComplete }) {
   const [text, setText] = useState('');
   const fullText = "<Welcome to my portfolio/>";
-  const navigate = useNavigate();
 
   useEffect(() => {
     let index = 0;

@@ -1,11 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import VoiceAssistant from './VoiceAssistant';
 import Loadingscreen from './WelcomeAnimation.jsx';
-import SignUp from './components/auth/SignUp.jsx';
-import SignIn from './components/auth/SignIn.jsx';
-import SignOut from './components/auth/SignOut.jsx';
-import ProtectedRoute from './components/auth/ProtectedRoute.jsx';
 
 const translations = {
   en: {
@@ -107,7 +103,7 @@ const certificateData = {
   'Meta-Front-End-Developer': { image: '/Meta-Front-End-Developer.png' }
 };
 
-const Header = ({ lang, setLang, theme, toggleTheme, isAuthenticated }) => {
+const Header = ({ lang, setLang, theme, toggleTheme }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -150,7 +146,6 @@ const Header = ({ lang, setLang, theme, toggleTheme, isAuthenticated }) => {
         <option value="en">English</option>
         <option value="ru">Русский</option>
       </select>
-      {isAuthenticated && <SignOut />}
     </header>
   );
 };
@@ -580,8 +575,7 @@ const App = () => {
   const [lang, setLang] = useState(localStorage.getItem('lang') || 'en');
   const [modalOpen, setModalOpen] = useState(false);
   const [currentCert, setCurrentCert] = useState('');
-  const [showPostAuthAnimation, setShowPostAuthAnimation] = useState(!!localStorage.getItem('showAnimation'));
-  const [isAuthenticated, setIsAuthenticated] = useState(!!JSON.parse(localStorage.getItem('currentUser')));
+  const [showAnimation, setShowAnimation] = useState(true);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -613,80 +607,75 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {showPostAuthAnimation ? (
+        {showAnimation ? (
           <Route
             path="*"
             element={
               <Loadingscreen
-                onComplete={() => {
-                  localStorage.removeItem('showAnimation');
-                  setShowPostAuthAnimation(false);
-                }}
+                onComplete={() => setShowAnimation(false)}
               />
             }
           />
         ) : (
           <>
-            <Route path="/signup" element={<SignUp setShowAnimation={() => setShowPostAuthAnimation(true)} />} />
-            <Route path="/signin" element={<SignIn setShowAnimation={() => setShowPostAuthAnimation(true)} />} />
             <Route
               path="/"
               element={
-                <ProtectedRoute>
-                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} isAuthenticated={isAuthenticated} />
+                <>
+                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} />
                   <HomePage lang={lang} />
                   <CertificateModal isOpen={modalOpen} onClose={closeModal} certName={currentCert} />
-                </ProtectedRoute>
+                </>
               }
             />
             <Route
               path="/about"
               element={
-                <ProtectedRoute>
-                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} isAuthenticated={isAuthenticated} />
+                <>
+                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} />
                   <AboutPage lang={lang} />
                   <CertificateModal isOpen={modalOpen} onClose={closeModal} certName={currentCert} />
-                </ProtectedRoute>
+                </>
               }
             />
             <Route
               path="/skills"
               element={
-                <ProtectedRoute>
-                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} isAuthenticated={isAuthenticated} />
+                <>
+                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} />
                   <SkillsPage lang={lang} />
                   <CertificateModal isOpen={modalOpen} onClose={closeModal} certName={currentCert} />
-                </ProtectedRoute>
+                </>
               }
             />
             <Route
               path="/resume"
               element={
-                <ProtectedRoute>
-                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} isAuthenticated={isAuthenticated} />
+                <>
+                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} />
                   <ResumePage lang={lang} openModal={openModal} />
                   <CertificateModal isOpen={modalOpen} onClose={closeModal} certName={currentCert} />
-                </ProtectedRoute>
+                </>
               }
             />
             <Route
               path="/contact"
               element={
-                <ProtectedRoute>
-                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} isAuthenticated={isAuthenticated} />
+                <>
+                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} />
                   <ContactPage lang={lang} />
                   <CertificateModal isOpen={modalOpen} onClose={closeModal} certName={currentCert} />
-                </ProtectedRoute>
+                </>
               }
             />
             <Route
               path="/assistant"
               element={
-                <ProtectedRoute>
-                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} isAuthenticated={isAuthenticated} />
+                <>
+                  <Header lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} />
                   <VoiceAssistant lang={lang} setLang={setLang} theme={theme} toggleTheme={toggleTheme} />
                   <CertificateModal isOpen={modalOpen} onClose={closeModal} certName={currentCert} />
-                </ProtectedRoute>
+                </>
               }
             />
           </>
